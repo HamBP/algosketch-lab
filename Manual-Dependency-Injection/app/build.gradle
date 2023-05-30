@@ -60,4 +60,12 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    // ViewModel
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
+
+    def nav_version = "2.3.5"
+
+    // Kotlin
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 }

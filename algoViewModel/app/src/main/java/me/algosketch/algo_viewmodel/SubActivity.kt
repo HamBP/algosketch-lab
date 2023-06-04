@@ -1,17 +1,16 @@
 package me.algosketch.algo_viewmodel
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 
-class MainActivity : AppCompatActivity() {
+class SubActivity : AppCompatActivity() {
+    private val viewModel: SubViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_sub)
 
-        Intent(this, SubActivity::class.java).apply {
-            startActivity(this)
-        }
+        viewModel.test()
     }
 }

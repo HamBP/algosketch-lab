@@ -5,9 +5,27 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import java.io.Closeable
+import kotlin.coroutines.CoroutineContext
+
+/**
+ * viewModel이 삭제되어도 close가 자동으로 호출되지 않음.
+ * 아마 lifecycle 버전이 2.5이상이 아니어서 그런 것 같지만, 확인하는 방법을 모르겠음.
+ * lifecycle을 직접 추가하면 충돌이 일어나서 실행되지 않음.
+ */
+class CloseableCoroutineScope(
+    context: CoroutineContext = SupervisorJob() + Dispatchers.Main.immediate
+) : Closeable, CoroutineScope {
+    override val coroutineContext: CoroutineContext = context
+    override fun close() {
+        coroutineContext.cancel()
+        println("is close() called?")
+    }
+}
 
 class SubViewModel(
-    private val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private val coroutineScope: CoroutineScope = CloseableCoroutineScope()
 ) : ViewModel() {
 
     fun test() {
@@ -17,5 +35,10 @@ class SubViewModel(
          */
         println("viewModelScope $viewModelScope")
         println("coroutineScope $coroutineScope")
+    }
+
+    override fun onCleared() {
+        println("onCleared")
+        coroutineScope.cancel()
     }
 }

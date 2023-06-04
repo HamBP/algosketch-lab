@@ -12,5 +12,7 @@ class SubActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sub)
 
         viewModel.test()
+
+        lifecycle
     }
 }

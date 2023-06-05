@@ -14,6 +14,9 @@ import me.algosketch.manualdependencyinjection.ui.theme.ManualDependencyInjectio
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        application
+
         super.onCreate(savedInstanceState)
         setContent {
             ManualDependencyInjectionTheme {
@@ -31,6 +34,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MdiApp() {
-    val viewModel = LoginViewModel(LoginRepository())
-    LoginScreen(viewModel = viewModel)
+    LoginScreen()
 }
